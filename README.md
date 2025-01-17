@@ -4,15 +4,15 @@
   <p align="center">
     <a href="https://webstree.com">View Demo</a>
     ·
-    <a href="https://github.com/hadsizefendi/webstree.com/issues">Report Bug</a>
+    <a href="https://github.com/hadsizefendi/webstree/issues">Report Bug</a>
     ·
-    <a href="https://github.com/hadsizefendi/webstree.com/issues">Request Feature</a>
+    <a href="https://github.com/hadsizefendi/webstree/issues">Request Feature</a>
   </p>
 
   <p align="center">
-    <img src="https://img.shields.io/github/license/hadsizefendi/webstree.com" alt="License">
-    <img src="https://img.shields.io/github/stars/hadsizefendi/webstree.com" alt="Stars">
-    <img src="https://img.shields.io/github/forks/hadsizefendi/webstree.com" alt="Forks">
+    <img src="https://img.shields.io/github/license/hadsizefendi/webstree" alt="License">
+    <img src="https://img.shields.io/github/stars/hadsizefendi/webstree" alt="Stars">
+    <img src="https://img.shields.io/github/forks/hadsizefendi/webstree" alt="Forks">
   </p>
 
 
@@ -80,10 +80,10 @@
 
 ```bash
 # Clone the repository
-git clone https://github.com/hadsizefendi/webstree.com.git
+git clone https://github.com/hadsizefendi/webstree.git
 
 # Navigate to project directory
-cd webstree.com
+cd webstree
 
 # Install dependencies
 pnpm install
@@ -96,8 +96,8 @@ pnpm dev
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/hadsizefendi/webstree.com.git
-   cd webstree.com
+   git clone https://github.com/hadsizefendi/webstree.git
+   cd webstree
    ```
 
 2. **Install dependencies**
@@ -122,7 +122,7 @@ pnpm dev
    pnpm dev
    ```
 
-5. **Build for production**
+5. **Build for production (Need Nuxt UI Pro License)**
    ```bash
    pnpm build
    ```
@@ -130,7 +130,7 @@ pnpm dev
 ## 🏗️ Project Structure
 
 ```
-webstree.com/
+webstree/
 ├── app/
 │   ├── components/    # Reusable Vue components
 │   ├── pages/         # Application pages
