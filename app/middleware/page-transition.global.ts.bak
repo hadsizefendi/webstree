@@ -1,0 +1,11 @@
+import { useAppConfig } from '#imports'
+
+export default defineNuxtRouteMiddleware((to) => {
+  const appConfig = useAppConfig()
+  const transition = appConfig.ui?.transition || 'none'
+
+  // Her sayfa geçişinde seçili transition'ı uygula
+  if (to.meta.pageTransition && typeof to.meta.pageTransition !== 'boolean') {
+    to.meta.pageTransition.name = transition
+  }
+})
