@@ -24,11 +24,10 @@ export default defineEventHandler(async (event) => {
       createdBy: body.createdBy
     }).save()
 
-    return { 
-      message: 'Ürün başarıyla eklendi', 
-      product 
+    return {
+      message: 'Ürün başarıyla eklendi',
+      product
     }
-
   } catch (error: any) {
     throw createError({
       statusCode: error.statusCode || 500,

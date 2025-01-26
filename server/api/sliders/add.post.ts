@@ -3,11 +3,7 @@ import { Slider } from '~~/server/models/Slider'
 export default defineEventHandler(async (event) => {
   try {
     const body = await readBody(event)
-    
-    // Debug için gelen veriyi logla
-    console.log('Server received body:', body)
 
-    // Title kontrolü
     if (!body?.title) {
       throw createError({
         statusCode: 400,
@@ -15,7 +11,6 @@ export default defineEventHandler(async (event) => {
       })
     }
 
-    // Items kontrolü
     if (!Array.isArray(body?.items) || body.items.length === 0) {
       throw createError({
         statusCode: 400,
@@ -23,7 +18,6 @@ export default defineEventHandler(async (event) => {
       })
     }
 
-    // CreatedBy kontrolü
     if (!body?.createdBy) {
       throw createError({
         statusCode: 400,
@@ -31,7 +25,6 @@ export default defineEventHandler(async (event) => {
       })
     }
 
-    // Sanitize and create slider
     const sliderData = {
       title: body.title.trim(),
       description: body.description?.trim() || '',
@@ -45,9 +38,6 @@ export default defineEventHandler(async (event) => {
       })),
       createdBy: body.createdBy
     }
-
-    // Debug için oluşturulan veriyi logla
-    console.log('Creating slider with data:', sliderData)
 
     const slider = await Slider.create(sliderData)
 

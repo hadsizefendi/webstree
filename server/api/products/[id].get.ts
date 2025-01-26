@@ -1,6 +1,6 @@
 export default defineEventHandler(async (event) => {
   const id = getRouterParam(event, 'id')
-  
+
   try {
     const product = await Product.findById(id).populate('categories')
     if (!product) {

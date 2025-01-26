@@ -1,7 +1,7 @@
-import { Blog } from '~~/server/models/Blog'
+import { _path } from 'path'
+import { _fs } from 'fs'
 import formidable from 'formidable'
-import path from 'path'
-import fs from 'fs/promises'
+import { Blog } from '~~/server/models/Blog'
 
 export default defineEventHandler(async (event) => {
   const id = event.context.params?.id
@@ -42,7 +42,7 @@ export default defineEventHandler(async (event) => {
       const form = formidable({
         multiples: false,
         keepExtensions: true,
-        maxFileSize: 5 * 1024 * 1024, // 5MB
+        maxFileSize: 5 * 1024 * 1024 // 5MB
       })
 
       const { fields } = await new Promise((resolve, reject) => {
@@ -66,14 +66,14 @@ export default defineEventHandler(async (event) => {
         { ...updateData, updatedAt: new Date() },
         { new: true }
       )
-      
+
       if (!updatedBlog) {
         throw createError({
           statusCode: 404,
           message: 'Güncellenecek blog bulunamadı.'
         })
       }
-      
+
       return {
         message: 'Blog başarıyla güncellendi',
         blog: updatedBlog

@@ -3,13 +3,21 @@
     <UContainer>
       <!-- Breadcrumb Navigation -->
       <nav class="mb-8 items-center gap-2 text-sm text-gray-600 dark:text-gray-400 hidden md:flex">
-        <UButton variant="link" to="/shop">Shop</UButton>
+        <UButton
+          variant="link"
+          to="/shop"
+        >
+          Shop
+        </UButton>
         <span class="i-heroicons-chevron-right" />
         <span class="truncate">{{ product?.name || 'Product Details' }}</span>
       </nav>
 
       <!-- Loading State -->
-      <div v-if="pending" class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+      <div
+        v-if="pending"
+        class="grid grid-cols-1 lg:grid-cols-2 gap-12"
+      >
         <div class="animate-pulse bg-gray-200 dark:bg-gray-800 rounded-2xl aspect-square" />
         <div class="space-y-6 animate-pulse">
           <div class="h-8 bg-gray-200 dark:bg-gray-800 rounded-lg w-3/4" />
@@ -19,66 +27,108 @@
       </div>
 
       <!-- Error State -->
-      <UAlert v-else-if="error" title="Product Not Found"
-        description="The product you're looking for cannot be found or may have been removed." color="red"
-        variant="soft" icon="i-heroicons-exclamation-circle">
+      <UAlert
+        v-else-if="error"
+        title="Product Not Found"
+        description="The product you're looking for cannot be found or may have been removed."
+        color="red"
+        variant="soft"
+        icon="i-heroicons-exclamation-circle"
+      >
         <template #footer>
-          <UButton color="red" variant="soft" to="/shop" :ui="{
-            rounded: $settings.uiConfig.rounded,
-            shadow: $settings.uiConfig.shadow,
-            background: $settings.uiConfig.background,
-            ring: $settings.uiConfig.border
-          }">
+          <UButton
+            color="red"
+            variant="soft"
+            to="/shop"
+            :ui="{
+              rounded: $settings.uiConfig.rounded,
+              shadow: $settings.uiConfig.shadow,
+              background: $settings.uiConfig.background,
+              ring: $settings.uiConfig.border
+            }"
+          >
             Return to Shop
           </UButton>
         </template>
       </UAlert>
 
       <!-- Product Content -->
-      <div v-else class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+      <div
+        v-else
+        class="grid grid-cols-1 lg:grid-cols-2 gap-12"
+      >
         <!-- Product Gallery -->
         <div class="sticky top-2 z-10 drop-shadow-[10px_10px_20px_rgba(0,0,0,0.5)]">
-          <ProductGallery :media="productMedia" class="" />
+          <ProductGallery
+            :media="productMedia"
+            class=""
+          />
         </div>
 
         <!-- Product Information -->
         <div class="space-y-8">
           <div>
-            <h1 class="text-3xl font-bold mb-4">{{ product.name }}</h1>
+            <h1 class="text-3xl font-bold mb-4">
+              {{ product.name }}
+            </h1>
             <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
               {{ product.description }}
             </p>
           </div>
 
           <!-- Categories -->
-          <div v-if="product?.categories?.length" class="space-y-2">
-            <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400">Categories</h3>
+          <div
+            v-if="product?.categories?.length"
+            class="space-y-2"
+          >
+            <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400">
+              Categories
+            </h3>
             <div class="flex flex-wrap gap-2">
-              <UBadge v-for="category in product.categories"
-                :key="typeof category === 'string' ? category : category._id" color="primary" variant="soft" :ui="{
+              <UBadge
+                v-for="category in product.categories"
+                :key="typeof category === 'string' ? category : category._id"
+                color="primary"
+                variant="soft"
+                :ui="{
                   rounded: $settings.uiConfig.rounded,
                   shadow: $settings.uiConfig.shadow,
                   background: $settings.uiConfig.background,
                   ring: $settings.uiConfig.border
-                }">
+                }"
+              >
                 {{ typeof category === 'string' ? category : category.title }}
               </UBadge>
             </div>
           </div>
 
           <!-- Variations -->
-          <div v-if="product.variations?.length" class="space-y-4">
-            <div v-for="variation in product.variations" :key="variation.name" class="space-y-2">
+          <div
+            v-if="product.variations?.length"
+            class="space-y-4"
+          >
+            <div
+              v-for="variation in product.variations"
+              :key="variation.name"
+              class="space-y-2"
+            >
               <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400">
                 {{ variation.name }}
               </h3>
               <div class="flex flex-wrap gap-2">
-                <UButton v-for="option in variation.options" :key="option" variant="soft" color="white" size="sm" :ui="{
-                  rounded: $settings.uiConfig.rounded,
-                  shadow: $settings.uiConfig.shadow,
-                  background: $settings.uiConfig.background,
-                  ring: $settings.uiConfig.border
-                }">
+                <UButton
+                  v-for="option in variation.options"
+                  :key="option"
+                  variant="soft"
+                  color="white"
+                  size="sm"
+                  :ui="{
+                    rounded: $settings.uiConfig.rounded,
+                    shadow: $settings.uiConfig.shadow,
+                    background: $settings.uiConfig.background,
+                    ring: $settings.uiConfig.border
+                  }"
+                >
                   {{ option }}
                 </UButton>
               </div>
@@ -87,21 +137,30 @@
 
           <!-- Price and Actions -->
           <div class="space-y-6 pt-6 border-t">
-            <div v-if="product.price" class="flex items-baseline gap-4">
+            <div
+              v-if="product.price"
+              class="flex items-baseline gap-4"
+            >
               <span class="text-4xl font-bold text-primary-600 dark:text-primary-400">
                 {{ formatPrice(product.price) }} ₺
               </span>
             </div>
 
             <div class="flex gap-4">
-              <UButton color="primary" size="xl" block :icon="'i-heroicons-shopping-bag'"
+              <UButton
+                color="primary"
+                size="xl"
+                block
+                :icon="'i-heroicons-shopping-bag'"
                 :to="`https://wa.me/905070664411?text=${encodeURIComponent(`Hello, I would like to get information about ${product.name}.`)}`"
-                target="_blank" :ui="{
+                target="_blank"
+                :ui="{
                   rounded: $settings.uiConfig.rounded,
                   shadow: $settings.uiConfig.shadow,
                   background: $settings.uiConfig.background,
                   ring: $settings.uiConfig.border
-                }">
+                }"
+              >
                 Buy Now
               </UButton>
             </div>
@@ -114,7 +173,6 @@
 </template>
 
 <script setup>
-
 const { $settings } = useNuxtApp()
 const route = useRoute()
 // Fetch product data
@@ -163,6 +221,6 @@ useSeoMeta({
   title: product.value ? `${product.value.name} - Webstree` : 'Webstree',
   ogTitle: product.value ? `${product.value.name} - Webstree` : 'Webstree',
   description: product.value ? `${product.value?.description} - Webstree` : 'Webstree',
-  ogDescription: product.value ? `${product.value?.description} - Webstree` : 'Webstree',
+  ogDescription: product.value ? `${product.value?.description} - Webstree` : 'Webstree'
 })
 </script>

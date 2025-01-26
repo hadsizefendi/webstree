@@ -4,37 +4,58 @@
       <!-- Header -->
       <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
         <div class="flex items-center gap-3">
-          <UButton icon="i-heroicons-arrow-left" color="white" variant="ghost" size="sm"
-            class="hover:bg-gray-100 dark:hover:bg-gray-800" @click="navigateTo('/panel')" :ui="{
+          <UButton
+            icon="i-heroicons-arrow-left"
+            color="white"
+            variant="ghost"
+            size="sm"
+            class="hover:bg-gray-100 dark:hover:bg-gray-800"
+            :ui="{
               rounded: $settings.uiConfig.rounded,
               shadow: $settings.uiConfig.shadow,
               background: $settings.uiConfig.background,
               ring: $settings.uiConfig.border
-            }" />
+            }"
+            @click="navigateTo('/panel')"
+          />
           <div>
             <h1
-              class="text-3xl font-bold bg-gradient-to-r from-primary-600 to-primary-600 bg-clip-text text-transparent">
+              class="text-3xl font-bold bg-gradient-to-r from-primary-600 to-primary-600 bg-clip-text text-transparent"
+            >
               {{ editMode ? 'Edit Slider' : 'Slider Management' }}
             </h1>
           </div>
         </div>
 
         <div class="flex items-center gap-2">
-          <UButton color="gray" variant="soft" icon="i-heroicons-arrow-path" :loading="loading"
-            class="shadow-sm hover:shadow-md transition-all" @click="refreshSliders" :ui="{
+          <UButton
+            color="gray"
+            variant="soft"
+            icon="i-heroicons-arrow-path"
+            :loading="loading"
+            class="shadow-sm hover:shadow-md transition-all"
+            :ui="{
               rounded: $settings.uiConfig.rounded,
               shadow: $settings.uiConfig.shadow,
               background: $settings.uiConfig.background,
               ring: $settings.uiConfig.border
-            }">
+            }"
+            @click="refreshSliders"
+          >
             Refresh
           </UButton>
-          <UButton color="primary" variant="solid" icon="i-heroicons-plus" @click="showAddSliderForm" :ui="{
-            rounded: $settings.uiConfig.rounded,
-            shadow: $settings.uiConfig.shadow,
-            background: $settings.uiConfig.background,
-            ring: $settings.uiConfig.border
-          }">
+          <UButton
+            color="primary"
+            variant="solid"
+            icon="i-heroicons-plus"
+            :ui="{
+              rounded: $settings.uiConfig.rounded,
+              shadow: $settings.uiConfig.shadow,
+              background: $settings.uiConfig.background,
+              ring: $settings.uiConfig.border
+            }"
+            @click="showAddSliderForm"
+          >
             Add Slider
           </UButton>
         </div>
@@ -42,38 +63,76 @@
 
       <!-- Sliders Grid -->
       <div class="flex flex-wrap items-center justify-center gap-6">
-        <div v-if="loading" v-for="n in 6" :key="n"
-          class="aspect-video bg-gray-100 dark:bg-gray-800 rounded-lg animate-pulse">
-        </div>
+        <div
+          v-for="n in 6"
+          v-if="loading"
+          :key="n"
+          class="aspect-video bg-gray-100 dark:bg-gray-800 rounded-lg animate-pulse"
+        />
 
-        <div v-else-if="sliders.length > 0" class="flex flex-wrap items-center justify-center gap-4">
-          <UCard v-for="slider in sliders" :key="slider._id"
-            class="group overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-300 relative" :ui="{
+        <div
+          v-else-if="sliders.length > 0"
+          class="flex flex-wrap items-center justify-center gap-4"
+        >
+          <UCard
+            v-for="slider in sliders"
+            :key="slider._id"
+            class="group overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-300 relative"
+            :ui="{
               body: { padding: '!p-0' },
               rounded: $settings.uiConfig.rounded,
               shadow: $settings.uiConfig.shadow,
               background: $settings.uiConfig.background,
               ring: $settings.uiConfig.border
-            }">
+            }"
+          >
             <!-- Aktif slider seçimi için checkbox ekliyoruz -->
             <div class="absolute top-2 left-2 z-30">
-              <UCheckbox :model-value="activeSlider?._id === slider._id"
-                @update:model-value="setActiveSlider(slider)" />
+              <UCheckbox
+                :model-value="activeSlider?._id === slider._id"
+                @update:model-value="setActiveSlider(slider)"
+              />
             </div>
             <div class="relative aspect-video w-40 h-40">
               <!-- Preview Grid -->
               <div class="absolute inset-0 grid grid-cols-2 gap-1">
-                <template v-for="(item, index) in slider.items.slice(0, 4)" :key="index">
+                <template
+                  v-for="(item, index) in slider.items.slice(0, 4)"
+                  :key="index"
+                >
                   <div class="relative bg-gray-100 dark:bg-gray-800">
-                    <video v-if="item.type === 'video'" :src="item.url" class="w-full h-full object-cover" autoplay
-                      muted loop playsinline />
-                    <img v-else :src="item.url" class="w-full h-full object-cover"
-                      :alt="item.title || 'Slider görsel'" />
+                    <video
+                      v-if="item.type === 'video'"
+                      :src="item.url"
+                      class="w-full h-full object-cover"
+                      autoplay
+                      muted
+                      loop
+                      playsinline
+                    />
+                    <img
+                      v-else
+                      :src="item.url"
+                      class="w-full h-full object-cover"
+                      :alt="item.title || 'Slider görsel'"
+                    >
                     <div class="absolute inset-0 bg-black/50">
                       <div class="p-2 text-white">
-                        <h4 class="text-sm font-bold">{{ item.title }}</h4>
-                        <p v-if="item.subtitle" class="text-xs text-white/90">{{ item.subtitle }}</p>
-                        <p v-if="item.description" class="text-xs text-white/80 line-clamp-2">{{ item.description }}</p>
+                        <h4 class="text-sm font-bold">
+                          {{ item.title }}
+                        </h4>
+                        <p
+                          v-if="item.subtitle"
+                          class="text-xs text-white/90"
+                        >
+                          {{ item.subtitle }}
+                        </p>
+                        <p
+                          v-if="item.description"
+                          class="text-xs text-white/80 line-clamp-2"
+                        >
+                          {{ item.description }}
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -81,40 +140,64 @@
               </div>
 
               <!-- Overlay -->
-              <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent 
-                opacity-60 group-hover:opacity-80 transition-all duration-300" />
+              <div
+                class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent
+                opacity-60 group-hover:opacity-80 transition-all duration-300"
+              />
 
               <!-- Content -->
               <div class="absolute inset-0 p-4 flex flex-col justify-between">
                 <div class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-all duration-300">
-                  <UButton color="yellow" variant="solid" icon="i-heroicons-pencil-square" size="xs"
-                    @click.stop="handleEdit(slider)" :ui="{
+                  <UButton
+                    color="yellow"
+                    variant="solid"
+                    icon="i-heroicons-pencil-square"
+                    size="xs"
+                    :ui="{
                       rounded: $settings.uiConfig.rounded,
                       shadow: $settings.uiConfig.shadow,
                       background: $settings.uiConfig.background,
                       ring: $settings.uiConfig.border
-                    }" />
-                  <UButton color="red" variant="solid" icon="i-heroicons-trash" size="xs"
-                    @click.stop="deleteSlider(slider._id)" :ui="{
+                    }"
+                    @click.stop="handleEdit(slider)"
+                  />
+                  <UButton
+                    color="red"
+                    variant="solid"
+                    icon="i-heroicons-trash"
+                    size="xs"
+                    :ui="{
                       rounded: $settings.uiConfig.rounded,
                       shadow: $settings.uiConfig.shadow,
                       background: $settings.uiConfig.background,
                       ring: $settings.uiConfig.border
-                    }" />
+                    }"
+                    @click.stop="deleteSlider(slider._id)"
+                  />
                 </div>
 
                 <div>
-                  <h3 class="font-semibold text-lg text-white">{{ slider.title }}</h3>
-                  <p v-if="slider.description" class="text-sm text-white/80 line-clamp-2 mt-1">
+                  <h3 class="font-semibold text-lg text-white">
+                    {{ slider.title }}
+                  </h3>
+                  <p
+                    v-if="slider.description"
+                    class="text-sm text-white/80 line-clamp-2 mt-1"
+                  >
                     {{ slider.description }}
                   </p>
                   <div class="flex items-center gap-2 mt-2">
-                    <UBadge color="white" variant="solid" size="sm" :ui="{
-                      rounded: $settings.uiConfig.rounded,
-                      shadow: $settings.uiConfig.shadow,
-                      background: $settings.uiConfig.background,
-                      ring: $settings.uiConfig.border
-                    }">
+                    <UBadge
+                      color="white"
+                      variant="solid"
+                      size="sm"
+                      :ui="{
+                        rounded: $settings.uiConfig.rounded,
+                        shadow: $settings.uiConfig.shadow,
+                        background: $settings.uiConfig.background,
+                        ring: $settings.uiConfig.border
+                      }"
+                    >
                       {{ slider.items.length }} slides
                     </UBadge>
                   </div>
@@ -125,42 +208,75 @@
         </div>
 
         <!-- Empty State -->
-        <div v-else class="text-center py-12 w-full">
-          <UIcon name="i-heroicons-photo" class="w-16 h-16 mx-auto text-gray-400" />
-          <h3 class="mt-4 text-lg font-medium text-gray-900 dark:text-gray-100">No sliders yet</h3>
-          <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">Get started by adding a new slider.</p>
+        <div
+          v-else
+          class="text-center py-12 w-full"
+        >
+          <UIcon
+            name="i-heroicons-photo"
+            class="w-16 h-16 mx-auto text-gray-400"
+          />
+          <h3 class="mt-4 text-lg font-medium text-gray-900 dark:text-gray-100">
+            No sliders yet
+          </h3>
+          <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">
+            Get started by adding a new slider.
+          </p>
         </div>
       </div>
 
       <!-- Slider Form Modal -->
-      <SettingSliderFormModal v-model="showModal" v-model:state="editingSlider" :edit-mode="editMode" :loading="loading"
-        @submit="handleSubmit" @close="resetForm" />
+      <SettingSliderFormModal
+        v-model="showModal"
+        v-model:state="editingSlider"
+        :edit-mode="editMode"
+        :loading="loading"
+        @submit="handleSubmit"
+        @close="resetForm"
+      />
 
       <!-- Delete Confirmation Modal -->
-      <UModal v-model="showDeleteModal" :ui="{
-        rounded: $settings.uiConfig.rounded,
-        shadow: $settings.uiConfig.shadow,
-        background: $settings.uiConfig.background,
-        ring: $settings.uiConfig.border
-      }">
+      <UModal
+        v-model="showDeleteModal"
+        :ui="{
+          rounded: $settings.uiConfig.rounded,
+          shadow: $settings.uiConfig.shadow,
+          background: $settings.uiConfig.background,
+          ring: $settings.uiConfig.border
+        }"
+      >
         <div class="p-6">
-          <h3 class="text-lg font-semibold mb-4">Delete Slider</h3>
+          <h3 class="text-lg font-semibold mb-4">
+            Delete Slider
+          </h3>
           <p class="text-gray-600 dark:text-gray-400 mb-6">
             Are you sure you want to delete this slider? This action cannot be undone.
           </p>
           <div class="flex justify-end gap-3">
-            <UButton color="gray" variant="soft" @click="showDeleteModal = false" label="Cancel" :ui="{
-              rounded: $settings.uiConfig.rounded,
-              shadow: $settings.uiConfig.shadow,
-              background: $settings.uiConfig.background,
-              ring: $settings.uiConfig.border
-            }" />
-            <UButton color="red" :loading="deleteLoading" @click="confirmDelete" label="Delete" :ui="{
-              rounded: $settings.uiConfig.rounded,
-              shadow: $settings.uiConfig.shadow,
-              background: $settings.uiConfig.background,
-              ring: $settings.uiConfig.border
-            }" />
+            <UButton
+              color="gray"
+              variant="soft"
+              label="Cancel"
+              :ui="{
+                rounded: $settings.uiConfig.rounded,
+                shadow: $settings.uiConfig.shadow,
+                background: $settings.uiConfig.background,
+                ring: $settings.uiConfig.border
+              }"
+              @click="showDeleteModal = false"
+            />
+            <UButton
+              color="red"
+              :loading="deleteLoading"
+              label="Delete"
+              :ui="{
+                rounded: $settings.uiConfig.rounded,
+                shadow: $settings.uiConfig.shadow,
+                background: $settings.uiConfig.background,
+                ring: $settings.uiConfig.border
+              }"
+              @click="confirmDelete"
+            />
           </div>
         </div>
       </UModal>
@@ -169,6 +285,9 @@
 </template>
 
 <script setup lang="ts">
+import { useSortable } from '@vueuse/integrations/useSortable'
+import type { Options } from 'sortablejs'
+
 definePageMeta({ middleware: 'auth' })
 useSeoMeta({
   title: 'Slider Management',
@@ -177,8 +296,6 @@ useSeoMeta({
   ogDescription: 'Slider list and management'
 })
 const { $settings } = useNuxtApp()
-import { useSortable } from '@vueuse/integrations/useSortable'
-import type { Options } from 'sortablejs'
 // Core states
 const toast = useToast()
 const loading = ref(false)
@@ -336,9 +453,7 @@ const handleSubmit = async () => {
       items: editingSlider.value.items || [],
       createdBy: user._id
     }
-
-    console.log('Final payload:', payload) // Debug için
-
+    
     const endpoint = editMode.value
       ? `/api/sliders/${currentSliderId.value}`
       : '/api/sliders/add'

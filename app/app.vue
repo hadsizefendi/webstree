@@ -43,12 +43,21 @@ onMounted(() => {
 </script>
 
 <template>
-  <video autoplay muted loop playsinline class="bg-video opacity-20">
-    <source src="/bg-3.mp4" type="video/mp4">
+  <video
+    autoplay
+    muted
+    loop
+    playsinline
+    class="bg-video opacity-20"
+  >
+    <source
+      src="/bg-3.mp4"
+      type="video/mp4"
+    >
   </video>
   <AppHeader />
   <UMain class="overflow-x-hidden">
-    <!--NuxtPage :transition="{ name: currentTransition, mode: 'out-in' }" class="page-content" /-->
+    <!-- NuxtPage :transition="{ name: currentTransition, mode: 'out-in' }" class="page-content" / -->
     <NuxtPage />
   </UMain>
   <AppFooter />

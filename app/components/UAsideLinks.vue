@@ -75,4 +75,8 @@ const props = defineProps({
 })
 
 const { ui, attrs } = useUI('aside.links', toRef(props, 'ui'), config, toRef(props, 'class'), true)
+
+const _isActive = (path: string) => {
+  // ...existing code...
+}
 </script>

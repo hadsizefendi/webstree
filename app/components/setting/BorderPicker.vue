@@ -25,6 +25,6 @@ const options = [
   { label: 'None', value: '' },
   { label: 'Light', value: 'ring-1' },
   { label: 'Normal', value: 'ring' },
-  { label: 'Bold', value: 'ring-8' },
+  { label: 'Bold', value: 'ring-8' }
 ]
 </script>

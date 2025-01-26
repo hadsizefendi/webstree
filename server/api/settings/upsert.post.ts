@@ -3,7 +3,7 @@ import { Setting } from '~~/server/models/Setting'
 export default defineEventHandler(async (event) => {
   try {
     const body = await readBody(event)
-    
+
     if (!body.key || !body.value || !body.type || !body.group) {
       throw createError({
         statusCode: 400,
@@ -17,10 +17,10 @@ export default defineEventHandler(async (event) => {
         ...body,
         updatedBy: body.createdBy
       },
-      { 
-        new: true, 
-        upsert: true, 
-        setDefaultsOnInsert: true 
+      {
+        new: true,
+        upsert: true,
+        setDefaultsOnInsert: true
       }
     )
 

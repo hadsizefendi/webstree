@@ -36,8 +36,8 @@ export default defineEventHandler(async (event) => {
       })
     }
 
-    const existingCategory = await Category.findOne({ 
-      title: { $regex: new RegExp(`^${title}$`, 'i') } 
+    const existingCategory = await Category.findOne({
+      title: { $regex: new RegExp(`^${title}$`, 'i') }
     })
 
     if (existingCategory) {

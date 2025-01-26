@@ -51,9 +51,6 @@ export default defineEventHandler(async (event) => {
         })
       })
 
-      console.log('Güncelleme - Gelen Alanlar:', fields)
-      console.log('Güncelleme - Gelen Dosyalar:', files)
-
       const updateData: any = {}
 
       if (fields.title?.[0]) {

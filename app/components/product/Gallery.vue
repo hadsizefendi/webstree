@@ -2,85 +2,149 @@
   <div class="product-gallery relative">
     <!-- Vertical Thumbnails - Only Desktop -->
     <div class="hidden lg:block absolute h-full">
-      <swiper :modules="[Navigation, Thumbs]" @swiper="setThumbsSwiper" :direction="'vertical'" :spaceBetween="0"
-        class="h-full" :slides-per-view="7">
-        <swiper-slide v-for="(item, index) in media" :key="item.url"
-          class="cursor-pointer rounded-xl overflow-hidden relative">
+      <swiper
+        :modules="[Navigation, Thumbs]"
+        :direction="'vertical'"
+        :space-between="0"
+        class="h-full"
+        :slides-per-view="7"
+        @swiper="setThumbsSwiper"
+      >
+        <swiper-slide
+          v-for="(item, index) in media"
+          :key="item.url"
+          class="cursor-pointer rounded-xl overflow-hidden relative"
+        >
           <template v-if="isVideo(item.url)">
             <video class="w-16 h-16 object-cover rounded-lg">
-              <source :src="item.url" :type="getVideoType(item.url)">
+              <source
+                :src="item.url"
+                :type="getVideoType(item.url)"
+              >
             </video>
             <!-- Video İkonu Katmanı -->
             <div
-              class="absolute inset-0 flex items-center justify-center bg-white/20 dark:bg-black/80 top-0 w-full h-full pb-1">
-              <UIcon name="i-heroicons-play-circle-solid" class="w-8 h-8 text-primary-500" />
+              class="absolute inset-0 flex items-center justify-center bg-white/20 dark:bg-black/80 top-0 w-full h-full pb-1"
+            >
+              <UIcon
+                name="i-heroicons-play-circle-solid"
+                class="w-8 h-8 text-primary-500"
+              />
             </div>
           </template>
-          <img v-else :src="item.url || '/images/product.webp'" :alt="`Thumbnail ${index + 1}`"
-            class="w-16 h-16 object-cover rounded-lg" loading="lazy" />
+          <img
+            v-else
+            :src="item.url || '/images/product.webp'"
+            :alt="`Thumbnail ${index + 1}`"
+            class="w-16 h-16 object-cover rounded-lg"
+            loading="lazy"
+          >
         </swiper-slide>
       </swiper>
     </div>
 
     <!-- Main Swiper -->
     <div class="lg:pl-20">
-      <swiper :modules="[Navigation, Pagination, Thumbs]" :thumbs="{ swiper: thumbsSwiper }" :pagination="{
-        dynamicBullets: true,
-        enabled: true,
-        bulletClass: 'swiper-pagination-bullet !bg-primary-500'
-      }" :navigation="{
-        enabled: true
-      }" @slideChange="handleSlideChange"
-        class="main-swiper aspect-square rounded-2xl bg-gray-50/50 dark:bg-gray-900/50">
-        <swiper-slide v-for="(item, index) in media" :key="item.url"
-          class="cursor-zoom-in max-h-[50vh] overflow-hidden brightness-100" @click="openLightbox">
+      <swiper
+        :modules="[Navigation, Pagination, Thumbs]"
+        :thumbs="{ swiper: thumbsSwiper }"
+        :pagination="{
+          dynamicBullets: true,
+          enabled: true,
+          bulletClass: 'swiper-pagination-bullet !bg-primary-500'
+        }"
+        :navigation="{
+          enabled: true
+        }"
+        class="main-swiper aspect-square rounded-2xl bg-gray-50/50 dark:bg-gray-900/50"
+        @slide-change="handleSlideChange"
+      >
+        <swiper-slide
+          v-for="(item, index) in media"
+          :key="item.url"
+          class="cursor-zoom-in max-h-[50vh] overflow-hidden brightness-100"
+          @click="openLightbox"
+        >
           <div class="w-full h-0 pb-[100%] relative">
             <template v-if="isVideo(item.url)">
-              <video class="absolute w-full h-full object-cover" muted loop autoplay>
-                <source :src="item.url" :type="getVideoType(item.url)">
+              <video
+                class="absolute w-full h-full object-cover"
+                muted
+                loop
+                autoplay
+              >
+                <source
+                  :src="item.url"
+                  :type="getVideoType(item.url)"
+                >
               </video>
             </template>
-            <img v-else :src="item.url || '/images/product.webp'" :alt="`Product image ${index + 1}`"
-              class="absolute w-full h-full object-cover" />
+            <img
+              v-else
+              :src="item.url || '/images/product.webp'"
+              :alt="`Product image ${index + 1}`"
+              class="absolute w-full h-full object-cover"
+            >
           </div>
         </swiper-slide>
       </swiper>
     </div>
 
     <!-- Lightbox -->
-    <UModal v-model="isLightboxOpen" class="bg-black/95" :ui="{
-      rounded: $settings.uiConfig.rounded,
-      shadow: $settings.uiConfig.shadow,
-      background: $settings.uiConfig.background,
-      ring: $settings.uiConfig.border
-    }">
+    <UModal
+      v-model="isLightboxOpen"
+      class="bg-black/95"
+      :ui="{
+        rounded: $settings.uiConfig.rounded,
+        shadow: $settings.uiConfig.shadow,
+        background: $settings.uiConfig.background,
+        ring: $settings.uiConfig.border
+      }"
+    >
       <div class="relative max-w-5xl mx-auto">
         <template v-if="isVideo(currentImage.url)">
-          <video class="max-h-[85vh] w-auto mx-auto" controls>
-            <source :src="currentImage.url" :type="getVideoType(currentImage.url)">
+          <video
+            class="max-h-[85vh] w-auto mx-auto"
+            controls
+          >
+            <source
+              :src="currentImage.url"
+              :type="getVideoType(currentImage.url)"
+            >
           </video>
         </template>
-        <img v-else :src="currentImage.url || '/images/product.webp'" :alt="currentImage.alt || 'Full size image'"
-          class="max-h-[85vh] w-auto mx-auto" />
-        <UButton class="absolute top-4 right-4" color="white" variant="ghost" icon="i-heroicons-x-mark"
-          @click="isLightboxOpen = false" :ui="{
+        <img
+          v-else
+          :src="currentImage.url || '/images/product.webp'"
+          :alt="currentImage.alt || 'Full size image'"
+          class="max-h-[85vh] w-auto mx-auto"
+        >
+        <UButton
+          class="absolute top-4 right-4"
+          color="white"
+          variant="ghost"
+          icon="i-heroicons-x-mark"
+          :ui="{
             rounded: $settings.uiConfig.rounded,
             shadow: $settings.uiConfig.shadow,
             background: $settings.uiConfig.background,
             ring: $settings.uiConfig.border
-          }" />
+          }"
+          @click="isLightboxOpen = false"
+        />
       </div>
     </UModal>
   </div>
 </template>
 
 <script setup>
-const { $settings } = useNuxtApp()
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Navigation, Pagination, Thumbs } from 'swiper/modules'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
+
+const { $settings } = useNuxtApp()
 
 const props = defineProps({
   media: {
@@ -111,17 +175,17 @@ const openLightbox = () => {
 
 // Video kontrolü için yeni fonksiyonlar
 const isVideo = (url) => {
-  return url.match(/\.(mp4|webm|ogg)$/i);
+  return url.match(/\.(mp4|webm|ogg)$/i)
 }
 
 const getVideoType = (url) => {
-  const extension = url.split('.').pop().toLowerCase();
+  const extension = url.split('.').pop().toLowerCase()
   const typeMap = {
-    'mp4': 'video/mp4',
-    'webm': 'video/webm',
-    'ogg': 'video/ogg'
-  };
-  return typeMap[extension] || 'video/mp4';
+    mp4: 'video/mp4',
+    webm: 'video/webm',
+    ogg: 'video/ogg'
+  }
+  return typeMap[extension] || 'video/mp4'
 }
 
 // Keyboard navigation

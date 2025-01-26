@@ -4,7 +4,7 @@ import { User } from '~~/server/models/User'
 export default defineEventHandler(async (event) => {
   try {
     const token = getCookie(event, 'auth_token')
-    
+
     if (!token) {
       return createError({
         statusCode: 401,
@@ -14,7 +14,7 @@ export default defineEventHandler(async (event) => {
 
     const config = useRuntimeConfig()
     const decoded = jwt.verify(token, config.jwtSecret) as { userId: string }
-    
+
     if (!decoded?.userId) {
       return createError({
         statusCode: 401,

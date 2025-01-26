@@ -5,28 +5,36 @@
       <UContainer>
         <div>
           <h1 class="text-3xl font-bold bg-gradient-to-r from-primary-200 to-primary-800 bg-clip-text text-transparent">
-            WebsTree Admin Panel
+            WebsTree Panel
           </h1>
           <p class="text-gray-400 mt-1">
-            WebsTree Admin Panel
+            Welcome {{ user?.name || user?.username }}! 
+            <template v-if="isAdmin">Here you can manage your website content.</template>
           </p>
         </div>
       </UContainer>
     </header>
     <!-- Main Content -->
     <UContainer class="py-12 h-full flex items-center justify-center">
-      <div class="flex flex-wrap items-center justify-center gap-8">
+      <!-- Admin kartlarını sadece admin kullanıcılara göster -->
+      <div v-if="isAdmin" class="flex flex-wrap items-center justify-center gap-8">
         <!-- Medya Yönetimi -->
         <NuxtLink to="/panel/media">
-          <UCard class="group panel-cards duration-300" :ui="{
-            rounded: $settings.uiConfig.rounded,
-            shadow: $settings.uiConfig.shadow,
-            background: $settings.uiConfig.background,
-            ring: $settings.uiConfig.border
-          }">
+          <UCard
+            class="group panel-cards duration-300"
+            :ui="{
+              rounded: $settings.uiConfig.rounded,
+              shadow: $settings.uiConfig.shadow,
+              background: $settings.uiConfig.background,
+              ring: $settings.uiConfig.border
+            }"
+          >
             <div class="flex items-center gap-4 mb-6">
               <div class="p-3 flex items-center justify-center rounded-xl bg-yellow-500/10 text-yellow-400">
-                <UIcon name="i-heroicons-photo" class="w-8 h-8" />
+                <UIcon
+                  name="i-heroicons-photo"
+                  class="w-8 h-8"
+                />
               </div>
               <div>
                 <h2 class="text-xl font-semibold">
@@ -55,15 +63,21 @@
         </NuxtLink>
         <!-- Slider Yönetimi -->
         <NuxtLink to="/panel/hero">
-          <UCard class="group panel-cards duration-300" :ui="{
-            rounded: $settings.uiConfig.rounded,
-            shadow: $settings.uiConfig.shadow,
-            background: $settings.uiConfig.background,
-            ring: $settings.uiConfig.border
-          }">
+          <UCard
+            class="group panel-cards duration-300"
+            :ui="{
+              rounded: $settings.uiConfig.rounded,
+              shadow: $settings.uiConfig.shadow,
+              background: $settings.uiConfig.background,
+              ring: $settings.uiConfig.border
+            }"
+          >
             <div class="flex items-center gap-4 mb-6">
               <div class="p-3 flex items-center justify-center rounded-xl bg-red-500/10 text-red-400">
-                <UIcon name="i-heroicons-play-circle" class="w-8 h-8" />
+                <UIcon
+                  name="i-heroicons-play-circle"
+                  class="w-8 h-8"
+                />
               </div>
               <div>
                 <h2 class="text-xl font-semibold">
@@ -92,15 +106,21 @@
         </NuxtLink>
         <!-- Ürün Yönetimi -->
         <NuxtLink to="/panel/product">
-          <UCard class="group panel-cards duration-300" :ui="{
-            rounded: $settings.uiConfig.rounded,
-            shadow: $settings.uiConfig.shadow,
-            background: $settings.uiConfig.background,
-            ring: $settings.uiConfig.border
-          }">
+          <UCard
+            class="group panel-cards duration-300"
+            :ui="{
+              rounded: $settings.uiConfig.rounded,
+              shadow: $settings.uiConfig.shadow,
+              background: $settings.uiConfig.background,
+              ring: $settings.uiConfig.border
+            }"
+          >
             <div class="flex items-center gap-4 mb-6">
               <div class="p-3 flex items-center justify-center rounded-xl bg-purple-500/10 text-purple-400">
-                <UIcon name="i-heroicons-shopping-bag" class="w-8 h-8" />
+                <UIcon
+                  name="i-heroicons-shopping-bag"
+                  class="w-8 h-8"
+                />
               </div>
               <div>
                 <h2 class="text-xl font-semibold">
@@ -129,15 +149,21 @@
         </NuxtLink>
         <!-- Kategori Yönetimi -->
         <NuxtLink to="/panel/category">
-          <UCard class="group panel-cards duration-300" :ui="{
-            rounded: $settings.uiConfig.rounded,
-            shadow: $settings.uiConfig.shadow,
-            background: $settings.uiConfig.background,
-            ring: $settings.uiConfig.border
-          }">
+          <UCard
+            class="group panel-cards duration-300"
+            :ui="{
+              rounded: $settings.uiConfig.rounded,
+              shadow: $settings.uiConfig.shadow,
+              background: $settings.uiConfig.background,
+              ring: $settings.uiConfig.border
+            }"
+          >
             <div class="flex items-center gap-4 mb-6">
               <div class="p-3 flex items-center justify-center rounded-xl bg-green-500/10 text-green-400">
-                <UIcon name="i-heroicons-tag" class="w-8 h-8" />
+                <UIcon
+                  name="i-heroicons-tag"
+                  class="w-8 h-8"
+                />
               </div>
               <div>
                 <h2 class="text-xl font-semibold">
@@ -166,15 +192,21 @@
         </NuxtLink>
         <!-- Blog Yönetimi -->
         <NuxtLink to="/panel/blog">
-          <UCard class="group panel-cards duration-300" :ui="{
-            rounded: $settings.uiConfig.rounded,
-            shadow: $settings.uiConfig.shadow,
-            background: $settings.uiConfig.background,
-            ring: $settings.uiConfig.border
-          }">
+          <UCard
+            class="group panel-cards duration-300"
+            :ui="{
+              rounded: $settings.uiConfig.rounded,
+              shadow: $settings.uiConfig.shadow,
+              background: $settings.uiConfig.background,
+              ring: $settings.uiConfig.border
+            }"
+          >
             <div class="flex items-center gap-4 mb-6">
               <div class="p-3 flex items-center justify-center rounded-xl bg-blue-500/10 text-blue-400">
-                <UIcon name="i-heroicons-pencil-square" class="w-8 h-8" />
+                <UIcon
+                  name="i-heroicons-pencil-square"
+                  class="w-8 h-8"
+                />
               </div>
               <div>
                 <h2 class="text-xl font-semibold">
@@ -203,15 +235,21 @@
         </NuxtLink>
         <!-- Theme Management -->
         <NuxtLink to="/panel/theme">
-          <UCard class="group panel-cards duration-300" :ui="{
-            rounded: $settings.uiConfig.rounded,
-            shadow: $settings.uiConfig.shadow,
-            background: $settings.uiConfig.background,
-            ring: $settings.uiConfig.border
-          }">
+          <UCard
+            class="group panel-cards duration-300"
+            :ui="{
+              rounded: $settings.uiConfig.rounded,
+              shadow: $settings.uiConfig.shadow,
+              background: $settings.uiConfig.background,
+              ring: $settings.uiConfig.border
+            }"
+          >
             <div class="flex items-center gap-4 mb-6">
               <div class="p-3 flex items-center justify-center rounded-xl bg-pink-500/10 text-pink-400">
-                <UIcon name="i-heroicons-paint-brush" class="w-8 h-8" />
+                <UIcon
+                  name="i-heroicons-paint-brush"
+                  class="w-8 h-8"
+                />
               </div>
               <div>
                 <h2 class="text-xl font-semibold">
@@ -239,9 +277,37 @@
           </UCard>
         </NuxtLink>
       </div>
+      
+      <!-- Normal kullanıcılar için alternatif içerik -->
+      <div v-else class="text-center">
+        <UIcon name="i-heroicons-information-circle" class="w-12 h-12 mx-auto text-gray-400"/>
+        <h2 class="mt-4 text-xl font-medium">Normal User Dashboard</h2>
+        <p class="mt-2 text-gray-500">Welcome to your dashboard.</p>
+      </div>
     </UContainer>
   </div>
 </template>
+
+<script setup lang="ts">
+definePageMeta({
+  middleware: ['auth']
+})
+
+const { $settings } = useNuxtApp()
+const { user, getUserInfo, isAdmin } = useAuth()
+
+onMounted(async () => {
+  await getUserInfo()
+})
+
+useSeoMeta({
+  title: 'Admin Panel - WebsTree',
+  ogTitle: 'Admin Panel - WebsTree',
+  description: 'Admin Panel - WebsTree',
+  ogDescription: 'Admin Panel - WebsTree'
+})
+
+</script>
 
 <style>
 .panel-cards {
@@ -255,15 +321,3 @@
   transform: scale(1.05);
 }
 </style>
-<script setup lang="ts">
-definePageMeta({
-  middleware: ['auth']
-})
-useSeoMeta({
-  title: 'Admin Panel - WebsTree',
-  ogTitle: 'Admin Panel - WebsTree',
-  description: 'Admin Panel - WebsTree',
-  ogDescription: 'Admin Panel - WebsTree'
-})
-const { $settings } = useNuxtApp()
-</script>

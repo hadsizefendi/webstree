@@ -1,5 +1,9 @@
 <template>
-  <USelect v-model="localValue" :options="options" size="sm" />
+  <USelect
+    v-model="localValue"
+    :options="options"
+    size="sm"
+  />
 </template>
 
 <script setup lang="ts">
@@ -24,20 +28,20 @@ const options = [
   { label: 'Secondary', value: 'bg-gray-100 dark:bg-gray-700' },
   { label: 'Primary Light', value: 'bg-primary-50 dark:bg-primary-900' },
   { label: 'Primary', value: 'bg-primary-100 dark:bg-primary-800' },
-  { 
-    label: 'Gradient Primary', 
+  {
+    label: 'Gradient Primary',
     value: 'bg-gradient-to-r from-primary-100 to-primary-300 dark:from-primary-900 dark:to-primary-700'
   },
-  { 
-    label: 'Gradient Secondary', 
+  {
+    label: 'Gradient Secondary',
     value: 'bg-gradient-to-r from-gray-100 to-gray-300 dark:from-gray-900 dark:to-gray-700'
   },
-  { 
-    label: 'Gradient Mix', 
+  {
+    label: 'Gradient Mix',
     value: 'bg-gradient-to-r from-primary-100 to-gray-300 dark:from-primary-900 dark:to-gray-700'
   },
-  { 
-    label: 'Gradient Diagonal', 
+  {
+    label: 'Gradient Diagonal',
     value: 'bg-gradient-to-br from-primary-100 via-gray-100 to-primary-300 dark:from-primary-900 dark:via-gray-900 dark:to-primary-700'
   }
 ]

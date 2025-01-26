@@ -14,9 +14,12 @@ export default defineNuxtConfig({
     '@hypernym/nuxt-anime'
   ],
 
-  anime: {
-    composables: true,
-    autoImport: true
+  plugins: [
+    '~/plugins/theme.ts'
+  ],
+
+  devtools: {
+    enabled: true
   },
 
   app: {
@@ -30,14 +33,6 @@ export default defineNuxtConfig({
         }
       ]
     }
-  },
-
-  plugins: [
-    '~/plugins/theme.ts'
-  ],
-
-  devtools: {
-    enabled: true
   },
 
   runtimeConfig: {
@@ -60,6 +55,11 @@ export default defineNuxtConfig({
 
   typescript: {
     strict: false
+  },
+
+  anime: {
+    composables: true,
+    autoImport: true
   },
 
   eslint: {

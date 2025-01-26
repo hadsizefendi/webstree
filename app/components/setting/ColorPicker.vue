@@ -2,17 +2,27 @@
   <div class="space-y-4">
     <!-- Color Preview and Selected Color -->
     <div class="flex items-center gap-4">
-      <div class="w-16 h-16 rounded-lg shadow-inner" 
-        :class="`bg-${modelValue}-${selectedTone}`" />
+      <div
+        class="w-16 h-16 rounded-lg shadow-inner"
+        :class="`bg-${modelValue}-${selectedTone}`"
+      />
       <div>
-        <div class="font-medium capitalize">{{ modelValue }}-{{ selectedTone }}</div>
+        <div class="font-medium capitalize">
+          {{ modelValue }}-{{ selectedTone }}
+        </div>
       </div>
     </div>
 
     <!-- Color Grid -->
     <div class="space-y-4">
-      <div v-for="(colors, groupName) in colorGroups" :key="groupName" class="space-y-2">
-        <div class="text-sm font-medium text-gray-500">{{ groupName }}</div>
+      <div
+        v-for="(colors, groupName) in colorGroups"
+        :key="groupName"
+        class="space-y-2"
+      >
+        <div class="text-sm font-medium text-gray-500">
+          {{ groupName }}
+        </div>
         <div class="flex flex-wrap gap-2">
           <button
             v-for="color in colors"
@@ -37,8 +47,12 @@
     <!-- Tone Selector -->
     <div class="space-y-2">
       <div class="flex justify-between items-center">
-        <div class="text-sm font-medium text-gray-500">Tone</div>
-        <div class="text-sm font-medium">{{ selectedTone }}</div>
+        <div class="text-sm font-medium text-gray-500">
+          Tone
+        </div>
+        <div class="text-sm font-medium">
+          {{ selectedTone }}
+        </div>
       </div>
       <URange
         v-model="selectedTone"
@@ -49,7 +63,10 @@
         @change="selectTone"
       >
         <template #track>
-          <div class="h-2 rounded-full" :class="`bg-${modelValue}-${selectedTone}`" />
+          <div
+            class="h-2 rounded-full"
+            :class="`bg-${modelValue}-${selectedTone}`"
+          />
         </template>
       </URange>
     </div>

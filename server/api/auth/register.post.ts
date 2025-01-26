@@ -1,48 +1,66 @@
 import { User } from '~~/server/models/User'
+import crypto from 'crypto'
+import { sendVerificationEmail } from '../../utils/emailService'
 
 export default defineEventHandler(async (event) => {
   try {
     const body = await readBody(event)
 
-    // Kullanıcı adının dolu olduğunu kontrol et
-    if (!body.username) {
+    if (!body.email || !body.password) {
       throw createError({
         statusCode: 400,
-        message: 'Kullanıcı adı gereklidir'
+        message: 'Email ve şifre zorunludur'
       })
     }
 
-    // Şifrenin dolu olduğunu kontrol et
-    if (!body.password) {
+    // Email formatını kontrol et
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(body.email)) {
       throw createError({
         statusCode: 400,
-        message: 'Şifre gereklidir'
+        message: 'Geçerli bir email adresi giriniz'
       })
     }
 
-    // Kullanıcı adının benzersiz olduğunu kontrol et
-    const existingUser = await User.findOne({ username: body.username })
+    // Email kontrolü
+    const existingUser = await User.findOne({ email: body.email })
     if (existingUser) {
       throw createError({
         statusCode: 400,
-        message: 'Bu kullanıcı adı zaten kullanılıyor'
+        message: 'Bu email adresi zaten kullanılıyor'
       })
     }
 
-    // Yeni kullanıcıyı oluştur - şifre User modelinde otomatik hashlenecek
+    // Doğrulama tokeni oluştur
+    const verificationToken = crypto.randomBytes(32).toString('hex')
+    const verificationCode = verificationToken.substring(0, 6).toUpperCase()
+    const verificationTokenExpiry = new Date(Date.now() + 24 * 60 * 60 * 1000) // 24 saat
+
+    // Yeni kullanıcı oluştur
     const user = new User({
-      username: body.username,
-      password: body.password
+      email: body.email,
+      password: body.password,
+      verificationToken,
+      verificationTokenExpiry
     })
 
-    // Kullanıcıyı kaydet
     await user.save()
 
+    // Theme ayarlarını al
+    const settings = await $fetch('/api/settings/theme')
+    
+    // Email göndermeyi arka planda yap
+    sendVerificationEmail(user.email, verificationToken, {
+      primary: settings.primary || 'sky',
+      gray: settings.gray || 'slate'
+    }).catch(error => {
+      console.error('Verification email sending failed:', error)
+    })
+
     return {
-      message: 'Kullanıcı başarıyla oluşturuldu',
-      user: {
-        username: user.username
-      }
+      message: 'Kayıt başarılı. Lütfen email adresinizi doğrulayın.',
+      email: user.email,
+      verificationCode // 6 haneli kodu response'da dön
     }
   } catch (error: any) {
     throw createError({

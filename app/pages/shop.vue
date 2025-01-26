@@ -4,7 +4,8 @@
       <!-- Header -->
       <div class="text-center mb-12">
         <h1
-          class="text-4xl font-bold bg-gradient-to-r from-primary-600 to-primary-600 bg-clip-text text-transparent mb-4">
+          class="text-4xl font-bold bg-gradient-to-r from-primary-600 to-primary-600 bg-clip-text text-transparent mb-4"
+        >
           Our Products
         </h1>
         <p class="text-gray-600 dark:text-gray-400">
@@ -15,35 +16,57 @@
       <!-- Mobil Filtre Butonu -->
       <UButton
         class="lg:hidden fixed left-4 bottom-4 z-50 w-fit h-12 shadow-lg hover:shadow-xl flex items-center justify-center"
-        size="xl" label="Filters" color="primary" variant="soft" icon="i-heroicons-adjustments-horizontal"
-        @click="isMobileFiltersOpen = true" :ui="{
+        size="xl"
+        label="Filters"
+        color="primary"
+        variant="soft"
+        icon="i-heroicons-adjustments-horizontal"
+        :ui="{
           rounded: $settings.uiConfig.rounded,
           shadow: $settings.uiConfig.shadow,
           background: $settings.uiConfig.background,
           ring: $settings.uiConfig.border
-        }" />
+        }"
+        @click="isMobileFiltersOpen = true"
+      />
 
       <!-- Mobil Filtre Menüsü -->
       <Transition name="slide-left">
-        <div v-if="isMobileFiltersOpen" class="fixed inset-0 z-[60]">
+        <div
+          v-if="isMobileFiltersOpen"
+          class="fixed inset-0 z-[60]"
+        >
           <!-- Backdrop -->
-          <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" @click="isMobileFiltersOpen = false" />
+          <div
+            class="absolute inset-0 bg-black/50 backdrop-blur-sm"
+            @click="isMobileFiltersOpen = false"
+          />
 
           <!-- Filtre Paneli -->
           <div class="absolute top-0 left-0 h-full w-80 bg-white dark:bg-gray-900 shadow-xl">
             <div class="h-full overflow-auto p-4">
               <div class="flex justify-end items-center mb-4">
-                <UButton color="gray" variant="ghost" icon="i-heroicons-x-mark" @click="isMobileFiltersOpen = false"
+                <UButton
+                  color="gray"
+                  variant="ghost"
+                  icon="i-heroicons-x-mark"
                   :ui="{
                     rounded: $settings.uiConfig.rounded,
                     shadow: $settings.uiConfig.shadow,
                     background: $settings.uiConfig.background,
                     ring: $settings.uiConfig.border
-                  }" />
+                  }"
+                  @click="isMobileFiltersOpen = false"
+                />
               </div>
-              <ShopFilters v-model:search-query="searchQuery" v-model:sort-option="sortOption"
-                v-model:price-range="priceRange" v-model:selected-category="selectedCategory" :categories="categories"
-                @reset="resetFilters" />
+              <ShopFilters
+                v-model:search-query="searchQuery"
+                v-model:sort-option="sortOption"
+                v-model:price-range="priceRange"
+                v-model:selected-category="selectedCategory"
+                :categories="categories"
+                @reset="resetFilters"
+              />
             </div>
           </div>
         </div>
@@ -52,51 +75,94 @@
       <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
         <!-- Filtreler Sidebar (Desktop) -->
         <div class="hidden lg:block lg:col-span-1 sticky top-14">
-          <ShopFilters v-model:search-query="searchQuery" v-model:sort-option="sortOption"
-            v-model:price-range="priceRange" v-model:selected-category="selectedCategory" :categories="categories"
-            @reset="resetFilters" />
+          <ShopFilters
+            v-model:search-query="searchQuery"
+            v-model:sort-option="sortOption"
+            v-model:price-range="priceRange"
+            v-model:selected-category="selectedCategory"
+            :categories="categories"
+            @reset="resetFilters"
+          />
         </div>
 
         <!-- Ürün Grid -->
         <div class="lg:col-span-3">
           <!-- Aktif Filtreler -->
-          <div v-if="hasActiveFilters" class="mb-6 flex flex-wrap gap-2">
-            <UBadge v-if="selectedCategory" color="primary" variant="soft" class="flex items-center gap-2" :ui="{
-              rounded: $settings.uiConfig.rounded,
-              shadow: $settings.uiConfig.shadow,
-              background: $settings.uiConfig.background,
-              ring: $settings.uiConfig.border
-            }">
+          <div
+            v-if="hasActiveFilters"
+            class="mb-6 flex flex-wrap gap-2"
+          >
+            <UBadge
+              v-if="selectedCategory"
+              color="primary"
+              variant="soft"
+              class="flex items-center gap-2"
+              :ui="{
+                rounded: $settings.uiConfig.rounded,
+                shadow: $settings.uiConfig.shadow,
+                background: $settings.uiConfig.background,
+                ring: $settings.uiConfig.border
+              }"
+            >
               {{ getSelectedCategoryName('main') }}
-              <UButton color="gray" variant="ghost" icon="i-heroicons-x-mark" size="xs" @click="selectedCategory = null"
+              <UButton
+                color="gray"
+                variant="ghost"
+                icon="i-heroicons-x-mark"
+                size="xs"
                 :ui="{
                   rounded: $settings.uiConfig.rounded,
                   shadow: $settings.uiConfig.shadow,
                   background: $settings.uiConfig.background,
                   ring: $settings.uiConfig.border
-                }" />
+                }"
+                @click="selectedCategory = null"
+              />
             </UBadge>
           </div>
 
           <!-- Ürünler -->
-          <div v-if="filteredProducts.length > 0" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            <NuxtLink v-for="product in displayedProducts" :key="product._id" :to="`/products/${product._id}`"
-              class="block group transition-transform hover:-translate-y-1 duration-200">
-              <UCard class="h-full overflow-hidden" :ui="{
-                body: { padding: '!p-0' }, rounded: $settings.uiConfig.rounded,
-                shadow: $settings.uiConfig.shadow,
-                background: $settings.uiConfig.background,
-                ring: $settings.uiConfig.border
-              }">
+          <div
+            v-if="filteredProducts.length > 0"
+            class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
+          >
+            <NuxtLink
+              v-for="product in displayedProducts"
+              :key="product._id"
+              :to="`/products/${product._id}`"
+              class="block group transition-transform hover:-translate-y-1 duration-200"
+            >
+              <UCard
+                class="h-full overflow-hidden"
+                :ui="{
+                  body: { padding: '!p-0' },
+                  rounded: $settings.uiConfig.rounded,
+                  shadow: $settings.uiConfig.shadow,
+                  background: $settings.uiConfig.background,
+                  ring: $settings.uiConfig.border
+                }"
+              >
                 <div class="relative pb-[75%] overflow-hidden">
-                  <img :src="product.imageUrl || '/images/product.webp'" :alt="product.name"
-                    class="absolute inset-0 w-full h-full object-cover transition-transform group-hover:scale-110">
+                  <img
+                    :src="product.imageUrl || '/images/product.webp'"
+                    :alt="product.name"
+                    class="absolute inset-0 w-full h-full object-cover transition-transform group-hover:scale-110"
+                  >
                 </div>
 
                 <template #footer>
-                  <h3 class="text-lg font-semibold mb-2 line-clamp-1" v-text="product.name" />
-                  <p class="text-gray-500 text-sm mb-4 line-clamp-2" v-text="product.description" />
-                  <div v-if="product.price" class="font-bold text-primary-600 text-xl">
+                  <h3
+                    class="text-lg font-semibold mb-2 line-clamp-1"
+                    v-text="product.name"
+                  />
+                  <p
+                    class="text-gray-500 text-sm mb-4 line-clamp-2"
+                    v-text="product.description"
+                  />
+                  <div
+                    v-if="product.price"
+                    class="font-bold text-primary-600 text-xl"
+                  >
                     {{ formatPrice(product.price) }} ₺
                   </div>
                 </template>
@@ -105,26 +171,45 @@
           </div>
 
           <!-- Yükleme Göstergesi -->
-          <div v-if="hasMoreProducts" ref="loadMoreTrigger" class="py-8 flex justify-center">
-            <UIcon name="i-heroicons-arrow-path" class="w-8 h-8 animate-spin text-primary-600" />
+          <div
+            v-if="hasMoreProducts"
+            ref="loadMoreTrigger"
+            class="py-8 flex justify-center"
+          >
+            <UIcon
+              name="i-heroicons-arrow-path"
+              class="w-8 h-8 animate-spin text-primary-600"
+            />
           </div>
 
           <!-- Ürün Bulunamadı -->
-          <UCard v-if="filteredProducts.length === 0" class="text-center p-8" :ui="{
-            rounded: $settings.uiConfig.rounded,
-            shadow: $settings.uiConfig.shadow,
-            background: $settings.uiConfig.background,
-            ring: $settings.uiConfig.border
-          }">
+          <UCard
+            v-if="filteredProducts.length === 0"
+            class="text-center p-8"
+            :ui="{
+              rounded: $settings.uiConfig.rounded,
+              shadow: $settings.uiConfig.shadow,
+              background: $settings.uiConfig.background,
+              ring: $settings.uiConfig.border
+            }"
+          >
             <template #header>
               <div class="flex justify-center">
-                <UIcon name="i-heroicons-face-frown" class="text-6xl text-gray-400" />
+                <UIcon
+                  name="i-heroicons-face-frown"
+                  class="text-6xl text-gray-400"
+                />
               </div>
             </template>
-            <h3 class="text-xl font-semibold mb-2">No Products Found</h3>
+            <h3 class="text-xl font-semibold mb-2">
+              No Products Found
+            </h3>
             <p class="text-gray-500">
               No products match your selected filters.
-              <UButton variant="link" @click="resetFilters">
+              <UButton
+                variant="link"
+                @click="resetFilters"
+              >
                 Clear filters
               </UButton>
               and try again.
@@ -137,6 +222,9 @@
 </template>
 
 <script setup>
+import { ref, computed, watch, watchEffect, onMounted, onUnmounted } from 'vue'
+import { useRoute } from 'vue-router'
+
 const { $settings } = useNuxtApp()
 useSeoMeta({
   title: 'Shop',
@@ -144,8 +232,6 @@ useSeoMeta({
   description: 'Shopping Page',
   ogDescription: 'Shopping Page'
 })
-import { ref, computed, watch, watchEffect, onMounted, onUnmounted } from 'vue'
-import { useRoute } from 'vue-router'
 // Mobil filtre state
 const isMobileFiltersOpen = ref(false)
 
@@ -194,7 +280,7 @@ const { data: products } = await useFetch('/api/products')
 
 // Fiyat formatlama fonksiyonu
 const formatPrice = (price) => {
-  return price?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+  return price?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')
 }
 
 // Metin temizleme fonksiyonu
@@ -207,7 +293,7 @@ const sanitizeText = (text) => {
 const filteredProducts = computed(() => {
   if (!products.value) return []
 
-  let filtered = products.value.map(product => ({
+  const filtered = products.value.map(product => ({
     ...product,
     name: sanitizeText(product.name),
     description: sanitizeText(product.description)
@@ -215,9 +301,9 @@ const filteredProducts = computed(() => {
     // Arama filtresi
     if (searchQuery.value) {
       const query = searchQuery.value.toLowerCase()
-      const matchesSearch =
-        product.name.toLowerCase().includes(query) ||
-        product.description.toLowerCase().includes(query)
+      const matchesSearch
+        = product.name.toLowerCase().includes(query)
+          || product.description.toLowerCase().includes(query)
       if (!matchesSearch) return false
     }
 
@@ -288,7 +374,7 @@ onMounted(() => {
       }
     },
     {
-      rootMargin: '100px',
+      rootMargin: '100px'
     }
   )
 

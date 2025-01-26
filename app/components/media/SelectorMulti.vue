@@ -4,89 +4,166 @@
     <div
       class="border-2 border-dashed border-gray-300 dark:border-gray-700 rounded-lg p-6 cursor-pointer transition-all duration-300 hover:border-primary-500"
       :class="{ 'border-primary-500 bg-primary-50 dark:bg-primary-900/20': isDragging }"
-      @dragenter.prevent="isDragging = true" @dragleave.prevent="isDragging = false" @dragover.prevent
-      @drop.prevent="handleDrop" @click="$refs.fileInput?.click()">
+      @dragenter.prevent="isDragging = true"
+      @dragleave.prevent="isDragging = false"
+      @dragover.prevent
+      @drop.prevent="handleDrop"
+      @click="$refs.fileInput?.click()"
+    >
       <div class="text-center">
-        <UIcon name="i-heroicons-cloud-arrow-up" class="w-12 h-12 mx-auto text-gray-400 mb-2" />
-        <p class="text-base text-gray-600 dark:text-gray-300">Drag images and videos here</p>
-        <p class="mt-1 text-sm text-gray-500">or click to upload</p>
-        <p class="mt-2 text-xs text-gray-400">Supported formats: PNG, JPG, WEBP, MP4, WEBM</p>
+        <UIcon
+          name="i-heroicons-cloud-arrow-up"
+          class="w-12 h-12 mx-auto text-gray-400 mb-2"
+        />
+        <p class="text-base text-gray-600 dark:text-gray-300">
+          Drag images and videos here
+        </p>
+        <p class="mt-1 text-sm text-gray-500">
+          or click to upload
+        </p>
+        <p class="mt-2 text-xs text-gray-400">
+          Supported formats: PNG, JPG, WEBP, MP4, WEBM
+        </p>
       </div>
-      <input ref="fileInput" type="file" multiple accept="image/*,video/*" class="hidden" @change="handleFileInput">
+      <input
+        ref="fileInput"
+        type="file"
+        multiple
+        accept="image/*,video/*"
+        class="hidden"
+        @change="handleFileInput"
+      >
     </div>
 
     <!-- Media Grid -->
     <div class="space-y-4">
       <!-- Filter Tabs -->
       <div class="flex flex-wrap items-center gap-2 pb-4 border-b dark:border-gray-800">
-        <UButton v-for="filter in filters" :key="filter.value"
-          :color="activeFilter === filter.value ? 'primary' : 'gray'" variant="soft" block size="xs"
-          @click="activeFilter = filter.value" :ui="{
+        <UButton
+          v-for="filter in filters"
+          :key="filter.value"
+          :color="activeFilter === filter.value ? 'primary' : 'gray'"
+          variant="soft"
+          block
+          size="xs"
+          :ui="{
             rounded: $settings.uiConfig.rounded,
             shadow: $settings.uiConfig.shadow,
             background: $settings.uiConfig.background,
             ring: $settings.uiConfig.border
-          }">
-          <UIcon :name="filter.icon" class="mr-1" />
+          }"
+          @click="activeFilter = filter.value"
+        >
+          <UIcon
+            :name="filter.icon"
+            class="mr-1"
+          />
           {{ filter.label }}
-          <UBadge v-if="filter.count" :color="activeFilter === filter.value ? 'white' : 'gray'" size="xs" :ui="{
-            rounded: $settings.uiConfig.rounded,
-            shadow: $settings.uiConfig.shadow,
-            background: $settings.uiConfig.background,
-            ring: $settings.uiConfig.border
-          }">
+          <UBadge
+            v-if="filter.count"
+            :color="activeFilter === filter.value ? 'white' : 'gray'"
+            size="xs"
+            :ui="{
+              rounded: $settings.uiConfig.rounded,
+              shadow: $settings.uiConfig.shadow,
+              background: $settings.uiConfig.background,
+              ring: $settings.uiConfig.border
+            }"
+          >
             {{ filter.count }}
           </UBadge>
         </UButton>
       </div>
 
       <!-- Grid View -->
-      <div v-if="loading" class="flex flex-wrap items-center justify-center gap-4">
-        <div v-for="n in 12" :key="n" class="aspect-video animate-pulse bg-gray-200 dark:bg-gray-700 rounded-lg"></div>
+      <div
+        v-if="loading"
+        class="flex flex-wrap items-center justify-center gap-4"
+      >
+        <div
+          v-for="n in 12"
+          :key="n"
+          class="aspect-video animate-pulse bg-gray-200 dark:bg-gray-700 rounded-lg"
+        />
       </div>
 
-      <div v-else class="flex flex-wrap items-center justify-center gap-2">
-        <div v-for="item in filteredItems" :key="item._id"
+      <div
+        v-else
+        class="flex flex-wrap items-center justify-center gap-2"
+      >
+        <div
+          v-for="item in filteredItems"
+          :key="item._id"
           class="relative aspect-video rounded-lg overflow-hidden cursor-pointer hover:ring-2 hover:ring-primary-500"
-          :class="{ 'ring-2 ring-primary-500': isSelected(item.url) }" @click="toggleSelection(item)">
+          :class="{ 'ring-2 ring-primary-500': isSelected(item.url) }"
+          @click="toggleSelection(item)"
+        >
           <!-- Preview -->
           <div class="h-full">
-            <video v-if="item.type === 'video'" :src="item.url" class="w-24 h-24 object-cover" autoplay muted loop
-              playsinline />
-            <img v-else :src="item.url" class="w-24 h-24 object-cover" />
+            <video
+              v-if="item.type === 'video'"
+              :src="item.url"
+              class="w-24 h-24 object-cover"
+              autoplay
+              muted
+              loop
+              playsinline
+            />
+            <img
+              v-else
+              :src="item.url"
+              class="w-24 h-24 object-cover"
+            >
           </div>
 
           <!-- Selection Indicator -->
-          <div class="absolute inset-0 flex items-center justify-center"
-            :class="isSelected(item.url) ? 'bg-primary-500/20' : 'bg-black/40 opacity-0 hover:opacity-100'">
+          <div
+            class="absolute inset-0 flex items-center justify-center"
+            :class="isSelected(item.url) ? 'bg-primary-500/20' : 'bg-black/40 opacity-0 hover:opacity-100'"
+          >
             <div class="w-8 h-8 rounded-full bg-primary-500 flex items-center justify-center">
-              <UIcon :name="isSelected(item.url) ? 'i-heroicons-check' : 'i-heroicons-plus'"
-                class="w-5 h-5 text-white" />
+              <UIcon
+                :name="isSelected(item.url) ? 'i-heroicons-check' : 'i-heroicons-plus'"
+                class="w-5 h-5 text-white"
+              />
             </div>
           </div>
 
           <!-- Type Indicator -->
           <div class="absolute bottom-2 left-2 flex items-center gap-1">
-            <UIcon :name="item.type === 'video' ? 'i-heroicons-video-camera' : 'i-heroicons-photo'"
-              class="w-4 h-4 text-white" />
+            <UIcon
+              :name="item.type === 'video' ? 'i-heroicons-video-camera' : 'i-heroicons-photo'"
+              class="w-4 h-4 text-white"
+            />
             <span class="text-xs text-white">{{ item.type === 'video' ? 'Video' : 'Görsel' }}</span>
           </div>
         </div>
       </div>
 
       <!-- Empty State -->
-      <div v-if="!loading && filteredItems.length === 0" class="text-center py-12">
-        <UIcon name="i-heroicons-photo" class="w-12 h-12 mx-auto text-gray-400 mb-4" />
-        <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">No media found</h3>
-        <p class="text-gray-500 text-sm mt-2">Start by uploading images or videos</p>
+      <div
+        v-if="!loading && filteredItems.length === 0"
+        class="text-center py-12"
+      >
+        <UIcon
+          name="i-heroicons-photo"
+          class="w-12 h-12 mx-auto text-gray-400 mb-4"
+        />
+        <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">
+          No media found
+        </h3>
+        <p class="text-gray-500 text-sm mt-2">
+          Start by uploading images or videos
+        </p>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import type { PropType } from 'vue'
+
 const { $settings } = useNuxtApp()
-import { PropType } from 'vue'
 
 const props = defineProps({
   modelValue: {

@@ -39,12 +39,11 @@ export default defineEventHandler(async (event) => {
 
     await blog.save()
 
-    return { 
+    return {
       success: true,
-      message: 'Blog başarıyla eklendi', 
-      blog 
+      message: 'Blog başarıyla eklendi',
+      blog
     }
-
   } catch (error) {
     console.error('Blog ekleme hatası:', error)
     throw createError({

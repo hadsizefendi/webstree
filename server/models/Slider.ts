@@ -32,14 +32,14 @@ const SliderSchema = new mongoose.Schema<ISlider>({
   title: { type: String, required: true },
   description: String,
   items: [SlideItemSchema],
-  createdBy: { 
-    type: mongoose.Schema.Types.ObjectId, 
+  createdBy: {
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
-    required: true 
+    required: true
   },
-  updatedBy: { 
-    type: mongoose.Schema.Types.ObjectId, 
-    ref: 'User' 
+  updatedBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
   }
 }, {
   timestamps: true

@@ -4,18 +4,30 @@
       Our Blog
     </h1>
     <div class="flex flex-wrap gap-4 max-w-7xl mx-auto items-center justify-center">
-      <div v-for="(blog, index) in displayedBlogs" :key="index"
-        class="group rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col h-full transform hover:-translate-y-1 relative">
-        <NuxtLink :href="`/blogs/${blog._id}`" class="flex flex-col h-full">
+      <div
+        v-for="(blog, index) in displayedBlogs"
+        :key="index"
+        class="group rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col h-full transform hover:-translate-y-1 relative"
+      >
+        <NuxtLink
+          :href="`/blogs/${blog._id}`"
+          class="flex flex-col h-full"
+        >
           <div class="aspect-square overflow-hidden relative">
-            <img :src="blog.imageUrl || '/images/blog.webp'" :alt="blog.title"
-              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
+            <img
+              :src="blog.imageUrl || '/images/blog.webp'"
+              :alt="blog.title"
+              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              loading="lazy"
+            >
             <div
-              class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+            />
           </div>
           <div class="p-5 backdrop-blur-md rounded-lg flex flex-col w-full absolute bottom-0">
             <h2
-              class="text-xl font-bold leading-tight line-clamp-2 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors duration-300">
+              class="text-xl font-bold leading-tight line-clamp-2 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors duration-300"
+            >
               {{ blog.title }}
             </h2>
             <p class="text-gray-600 dark:text-gray-300 text-sm leading-relaxed line-clamp-3">
@@ -23,13 +35,19 @@
             </p>
             <div class="mt-auto pt-4">
               <span
-                class="inline-flex items-center text-sm font-medium text-primary-600 dark:text-primary-400 group-hover:text-primary-700 dark:group-hover:text-primary-300">
+                class="inline-flex items-center text-sm font-medium text-primary-600 dark:text-primary-400 group-hover:text-primary-700 dark:group-hover:text-primary-300"
+              >
                 Read More
-                <svg class="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1" viewBox="0 0 20 20"
-                  fill="currentColor">
-                  <path fill-rule="evenodd"
+                <svg
+                  class="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fill-rule="evenodd"
                     d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                    clip-rule="evenodd" />
+                    clip-rule="evenodd"
+                  />
                 </svg>
               </span>
             </div>
@@ -37,13 +55,22 @@
         </NuxtLink>
       </div>
     </div>
-    <div v-if="visibleBlogs < blogs.length" class="flex justify-center mt-8">
-      <UButton color="primary" variant="outline" @click="loadMore" label="Show More" :ui="{
-        rounded: $settings.uiConfig.rounded,
-        shadow: $settings.uiConfig.shadow,
-        background: $settings.uiConfig.background,
-        ring: $settings.uiConfig.border
-      }" />
+    <div
+      v-if="visibleBlogs < blogs.length"
+      class="flex justify-center mt-8"
+    >
+      <UButton
+        color="primary"
+        variant="outline"
+        label="Show More"
+        :ui="{
+          rounded: $settings.uiConfig.rounded,
+          shadow: $settings.uiConfig.shadow,
+          background: $settings.uiConfig.background,
+          ring: $settings.uiConfig.border
+        }"
+        @click="loadMore"
+      />
     </div>
   </section>
 </template>
