@@ -1,5 +1,7 @@
 <template>
-  <UHeader :links="links">
+  <UHeader :links="links" :ui="{
+    rounded: $settings.uiConfig.rounded,
+  }">
     <template #logo>
       <AppLogo />
     </template>
@@ -7,31 +9,24 @@
     <template #right>
       <div class="flex items-center gap-2 p-2 backdrop-blur-2xl rounded-lg">
         <UColorModeButton />
+        <AppMiniCart />
         <template v-if="authToken">
-          <UButton
-            to="/panel"
-            variant="ghost"
-            class="flex items-center gap-1"
-            icon="i-heroicons-squares-2x2"
-          >
+          <UButton to="/panel" variant="ghost" class="flex items-center gap-1" icon="i-heroicons-squares-2x2" :ui="{
+            rounded: $settings.uiConfig.rounded,
+          }">
             <span class="hidden md:inline">Panel</span>
           </UButton>
-          <UButton
-            variant="ghost"
-            class="flex items-center gap-1"
-            icon="i-heroicons-arrow-right-on-rectangle"
-            @click="handleLogout"
-          >
+          <UButton variant="ghost" class="flex items-center gap-1" icon="i-heroicons-arrow-right-on-rectangle"
+            @click="handleLogout" :ui="{
+              rounded: $settings.uiConfig.rounded,
+            }">
             <span class="hidden md:inline">Logout</span>
           </UButton>
         </template>
-        <UButton
-          v-else
-          to="/panel/login"
-          variant="ghost"
-          class="flex items-center gap-1"
-          icon="i-heroicons-user-circle"
-        >
+        <UButton v-else to="/panel/login" variant="ghost" class="flex items-center gap-1" icon="i-heroicons-user-circle"
+          :ui="{
+            rounded: $settings.uiConfig.rounded,
+          }">
           <span class="hidden md:inline">Login</span>
         </UButton>
       </div>

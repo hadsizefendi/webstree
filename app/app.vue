@@ -56,7 +56,7 @@ onMounted(() => {
     >
   </video>
   <AppHeader />
-  <UMain class="overflow-x-hidden">
+  <UMain>
     <!-- NuxtPage :transition="{ name: currentTransition, mode: 'out-in' }" class="page-content" / -->
     <NuxtPage />
   </UMain>

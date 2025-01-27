@@ -17,6 +17,7 @@
           class="group"
         >
           <UCard
+          class="overflow-hidden"
             :ui="{
               body: { padding: '!p-0' },
               rounded: $settings.uiConfig.rounded,

@@ -1,4 +1,6 @@
 <template>
+          <div class="sticky bottom-4 md:top-16 h-fit">
+
   <UCard
     class="h-fit"
     :ui="{
@@ -111,7 +113,7 @@
       <h3 class="font-medium text-left text-primary-500">
         Categories
       </h3>
-      <div class="space-y-1 flex flex-col items-left">
+      <div class="space-y-1 flex flex-col items-left max-h-[40vh] overflow-y-auto">
         <UButton
           v-for="category in categories"
           :key="category._id"
@@ -137,6 +139,7 @@
       </div>
     </div>
   </UCard>
+  </div>
 </template>
 
 <script setup>

@@ -2,7 +2,7 @@ import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import crypto from 'crypto'
 import { User } from '~~/server/models/User'
-import { sendVerificationEmail } from '../../utils/emailService'
+import { sendVerificationEmail } from '~~/server/utils/emailService'
 
 export default defineEventHandler(async (event) => {
   try {

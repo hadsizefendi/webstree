@@ -1,6 +1,6 @@
 import { User } from '~~/server/models/User'
 import crypto from 'crypto'
-import { sendVerificationEmail } from '../../utils/emailService'
+import { sendVerificationEmail } from '~~/server/utils/emailService'
 
 export default defineEventHandler(async (event) => {
   try {

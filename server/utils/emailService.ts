@@ -224,3 +224,48 @@ export const sendPasswordResetEmail = async (email: string, token: string) => {
   
   await sendEmail(email, 'Şifre Sıfırlama', htmlContent)
 }
+
+interface OrderEmailContent {
+  orderNumber: string
+  items: Array<{
+    name: string
+    quantity: number
+    price: number
+    total: number
+  }>
+  subtotal: number
+  totalAmount: number
+  shippingAddress: any
+  billingAddress?: any
+}
+
+export const sendOrderConfirmationEmail = async (email: string, orderDetails: OrderEmailContent) => {
+  const htmlContent = await getEmailTemplate({
+    title: 'Siparişiniz Alındı!',
+    message: `${orderDetails.orderNumber} numaralı siparişiniz başarıyla oluşturuldu. Siparişinizin detayları aşağıdadır:
+      <div style="margin: 20px 0; padding: 20px; background: #374151; border-radius: 12px;">
+        ${orderDetails.items.map(item => `
+          <div style="display: flex; justify-content: space-between; margin: 10px 0; color: #ffffff;">
+            <span>${item.name} (x${item.quantity})</span>
+            <span>${item.total} ₺</span>
+          </div>
+        `).join('')}
+        <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #4b5563;">
+          <div style="display: flex; justify-content: space-between; color: #ffffff;">
+            <strong>Toplam:</strong>
+            <strong>${orderDetails.totalAmount} ₺</strong>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top: 20px; color: #ffffff;">
+        <strong>Teslimat Adresi:</strong><br>
+        ${orderDetails.shippingAddress.firstName} ${orderDetails.shippingAddress.lastName}<br>
+        ${orderDetails.shippingAddress.address}<br>
+        ${orderDetails.shippingAddress.neighborhood}, ${orderDetails.shippingAddress.district}/${orderDetails.shippingAddress.city}
+      </div>`,
+    buttonText: 'Siparişimi Görüntüle',
+    buttonUrl: `https://webstree.com/panel/orders/${orderDetails.orderNumber}`
+  })
+  
+  await sendEmail(email, 'Siparişiniz Alındı!', htmlContent)
+}

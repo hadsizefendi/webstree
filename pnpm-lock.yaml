@@ -32,9 +32,15 @@ importers:
       '@nuxt/ui-pro':
         specifier: ^1.7.0
         version: 1.7.0(focus-trap@7.6.4)(magicast@0.3.5)(rollup@4.32.0)(sortablejs@1.15.6)(typescript@5.7.3)(vite@6.0.11(@types/node@22.10.10)(jiti@2.4.2)(terser@5.37.0)(yaml@2.7.0))(vue@3.5.13(typescript@5.7.3))
+      '@types/bcrypt':
+        specifier: ^5.0.2
+        version: 5.0.2
       '@types/fluent-ffmpeg':
         specifier: ^2.1.27
         version: 2.1.27
+      '@types/jsonwebtoken':
+        specifier: ^9.0.8
+        version: 9.0.8
       '@types/nodemailer':
         specifier: ^6.4.17
         version: 6.4.17
@@ -1332,6 +1338,9 @@ packages:
   '@types/animejs@3.1.13':
     resolution: {integrity: sha512-yWg9l1z7CAv/TKpty4/vupEh24jDGUZXv4r26StRkpUPQm04ztJaftgpto8vwdFs8SiTq6XfaPKCSI+wjzNMvQ==}
 
+  '@types/bcrypt@5.0.2':
+    resolution: {integrity: sha512-6atioO8Y75fNcbmj0G7UjI9lXN2pQ/IGJ2FWT4a/btd0Lk9lQalHLKhkgKVZ3r+spnmWUKfbMi1GEe9wyHQfNQ==}
+
   '@types/debug@4.1.12':
     resolution: {integrity: sha512-vIChWdVG3LG1SMxEvI/AK+FWJthlrqlTu7fbrlywTkkaONwk/UAGaULXRlf8vkzFBLVm0zkMdCquhL5aOjhXPQ==}
 
@@ -1358,6 +1367,9 @@ packages:
 
   '@types/json-schema@7.0.15':
     resolution: {integrity: sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==}
+
+  '@types/jsonwebtoken@9.0.8':
+    resolution: {integrity: sha512-7fx54m60nLFUVYlxAB1xpe9CBWX2vSrk50Y6ogRJ1v5xxtba7qXTg5BgYDN5dq+yuQQ9HaVlHJyAAt1/mxryFg==}
 
   '@types/mdast@4.0.4':
     resolution: {integrity: sha512-kGaNbPh1k7AFzgpud/gMdvIm5xuECykRR+JnWKQno9TAXVa6WIVCGTPvYGekIDL4uwCZQSYbUxNBSb1aUo79oA==}
@@ -7791,6 +7803,10 @@ snapshots:
 
   '@types/animejs@3.1.13': {}
 
+  '@types/bcrypt@5.0.2':
+    dependencies:
+      '@types/node': 22.10.10
+
   '@types/debug@4.1.12':
     dependencies:
       '@types/ms': 2.1.0
@@ -7822,6 +7838,11 @@ snapshots:
       '@types/node': 22.10.10
 
   '@types/json-schema@7.0.15': {}
+
+  '@types/jsonwebtoken@9.0.8':
+    dependencies:
+      '@types/ms': 2.1.0
+      '@types/node': 22.10.10
 
   '@types/mdast@4.0.4':
     dependencies:

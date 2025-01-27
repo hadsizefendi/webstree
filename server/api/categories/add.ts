@@ -44,7 +44,7 @@ export default defineEventHandler(async (event) => {
       return { message: 'Bu isimde bir kategori zaten mevcut', category: existingCategory }
     }
 
-    let finalImageUrl = imageUrl || `${publicUrlBase}category.webp`
+    let finalImageUrl = imageUrl || `https://webstree.com/images/category.webp`
 
     if (!imageUrl && files.image?.filepath) {
       const processedImage = await sharp(await fs.readFile(files.image.filepath))

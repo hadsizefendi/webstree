@@ -151,9 +151,9 @@
                 color="primary"
                 size="xl"
                 block
-                :icon="'i-heroicons-shopping-bag'"
-                :to="`https://wa.me/905070664411?text=${encodeURIComponent(`Hello, I would like to get information about ${product.name}.`)}`"
-                target="_blank"
+                :icon="'i-heroicons-shopping-cart'"
+                @click="addToCart"
+                :loading="addingToCart"
                 :ui="{
                   rounded: $settings.uiConfig.rounded,
                   shadow: $settings.uiConfig.shadow,
@@ -161,7 +161,7 @@
                   ring: $settings.uiConfig.border
                 }"
               >
-                Buy Now
+                Add to Cart
               </UButton>
             </div>
           </div>
@@ -175,6 +175,8 @@
 <script setup>
 const { $settings } = useNuxtApp()
 const route = useRoute()
+const toast = useToast() // Add toast composable
+
 // Fetch product data
 const { data: product, pending, error } = await useFetch(`/api/products/${route.params.id}`)
 
@@ -215,6 +217,45 @@ const productMedia = computed(() => {
 // Price formatter
 const formatPrice = (price) => {
   return new Intl.NumberFormat('tr-TR').format(price)
+}
+
+const addingToCart = ref(false)
+
+async function addToCart() {
+  addingToCart.value = true
+  try {
+    await $fetch('/api/cart/add', {
+      method: 'POST',
+      body: {
+        productId: product.value._id,
+        quantity: 1
+      }
+    })
+    
+    // Show simple success toast
+    toast.add({
+      title: 'Başarılı',
+      description: 'Ürün sepete eklendi',
+      color: 'green',
+      icon: 'i-heroicons-check-circle',
+      timeout: 2000
+    })
+
+    // MiniCart'ı güncelle
+    const nuxtApp = useNuxtApp()
+    nuxtApp.callHook('cart:updated')
+    
+  } catch (error) {
+    toast.add({
+      title: 'Hata',
+      description: error.data?.message || 'Ürün sepete eklenirken bir hata oluştu',
+      color: 'red',
+      icon: 'i-heroicons-exclamation-circle',
+      timeout: 3000
+    })
+  } finally {
+    addingToCart.value = false
+  }
 }
 
 useSeoMeta({

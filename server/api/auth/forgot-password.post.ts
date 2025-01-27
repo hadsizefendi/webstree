@@ -1,6 +1,6 @@
 import { User } from '~~/server/models/User'
 import crypto from 'crypto'
-import { sendPasswordResetEmail } from '../../utils/emailService'
+import { sendPasswordResetEmail } from '~~/server/utils/emailService'
 
 export default defineEventHandler(async (event) => {
   try {
