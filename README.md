@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="./logo.svg" alt="WebsTree Logo" width="400" style="margin-bottom: 20px;"/>
+  <img src="https://webstree.com/_ipx/_/logo.svg" alt="WebsTree Logo" width="400" style="margin-bottom: 20px;"/>
 
   <p align="center">
     <a href="https://webstree.com">View Demo</a>
